@@ -8,7 +8,6 @@
  *Return: 0
  */
 
-int main(int argc, char *argv[], char **env)
 {
 	(void)argc;
 	signal(SIGINT, CTRLC);
