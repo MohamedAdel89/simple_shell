@@ -18,7 +18,6 @@ char **split(char *str, const char *delim)
 		return (NULL);
 	}
 	/*Count the number of words to allocate memory*/
-	buffer = _strtok(tmpCpy, delim);
 	wNum += 1;
 	while (buffer != NULL)
 	{
