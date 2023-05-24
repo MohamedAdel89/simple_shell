@@ -1,6 +1,7 @@
 #ifndef _HEADERS_SHELL_
 #define _HEADERS_SHELL_
 
+#include <stdio.h>
 #include <unistd.h>
 #include <stdlib.h>
 #include <string.h>
