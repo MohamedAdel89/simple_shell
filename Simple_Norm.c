@@ -7,7 +7,6 @@
  *Return: pointer to string
  */
 
-int built_exit(char **cadena)
 {
 	int status;
 
