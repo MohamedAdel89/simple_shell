@@ -8,7 +8,6 @@
  *Return: flag = 1 si char a is in delim
  */
 
-int is_in_delim(char a, const char *delim)
 {
 	int flag = 0, cont;
 
