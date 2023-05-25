@@ -28,18 +28,11 @@ int _env(char *argv[]);
 void pperror(int line, char *name, char **argv);
 void CTRLC(int sign);
 
-/**
- * struct bicmds_t - structure of built in commands
- * @name: name of the built in command
- * @f: array of args
- */
-
-/*Structure of Validation*/
-
-typedef struct bicmds_t
+/* Struct declaration */
+typedef struct bicmds_s
 {
 	char *name;
-	int (*f)(char **argv);
+	int (*f)(char **);
 } bicmds_t;
 
 int is_in_delim(char a, const char *delim);
