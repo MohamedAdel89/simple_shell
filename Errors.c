@@ -12,6 +12,7 @@ void pperror(int line, char *name, char **argv)
 {
 	char *ful_err, error[] = ": not found\n";
 	int iter = 0, tmp = line, tmpIt = 1;
+
 	ful_err = malloc(1024 * sizeof(char));
 	for (iter = 0; iter < 1024; iter++)
 		ful_err[iter] = '\0';

@@ -10,16 +10,16 @@
 
 void valid_command(char **argv, char *name, int line)
 {
-	bicmds builtinCmds[] = {
-		{"cd", built_cd},
-		{"env", _env},
-		{"setenv", prueba},
-		{"unsetenv", prueba},
-		{"exit", built_exit},
-		{"alias", prueba},
-		{"help", built_help},
-		{"history", built_history},
-		{NULL, NULL}
+	bicmds_t builtinCmds[] = {
+		"cd", built_cd,
+		"env", _env,
+		"setenv", prueba,
+		"unsetenv", prueba,
+		"exit", built_exit,
+		"alias", prueba,
+		"help", built_help,
+		"history", built_history,
+		NULL, NULL
 	};
 	int iter = 0;
 	char *ful_path;
@@ -172,4 +172,3 @@ char *get_path(void)
 	tmpEnviron = _strdup(environ[i]);
 	return (tmpEnviron);
 }
-

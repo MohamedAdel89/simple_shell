@@ -29,9 +29,9 @@ void pperror(int line, char *name, char **argv);
 void CTRLC(int sign);
 
 /**
- *struct bicmds_t - structure of built in commands
- *@name: name of the built in command
- *@f: array of args
+ * struct bicmds_t - structure of built in commands
+ * @name: name of the built in command
+ * @f: array of args
  */
 
 /*Structure of Validation*/
@@ -40,7 +40,7 @@ typedef struct bicmds_t
 {
 	char *name;
 	int (*f)(char **argv);
-} bicmds;
+} bicmds_t;
 
 int is_in_delim(char a, const char *delim);
 char *look_first_char(char *str, const char *delim);
