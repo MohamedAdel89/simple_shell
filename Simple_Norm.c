@@ -1,12 +1,10 @@
 #include "headers.h"
-/**
- *built_exit - exit from shell
- *
- *@cadena: array from argv
- *
- *Return: pointer to string
- */
 
+/**
+ * built_exit - exit from shell
+ * @cadena: array from argv
+ * Return: void
+ */
 int built_exit(char **cadena)
 {
 	int status;
@@ -28,13 +26,10 @@ int built_exit(char **cadena)
 }
 
 /**
- *built_cd - change directory
- *
- *@cadena: array from argv
- *
- *Return: pointer to string
+ * built_cd - change directory
+ * @cadena: array from argv
+ * Return: void
  */
-
 int built_cd(char **cadena)
 {
 	free(cadena[0]);
@@ -43,13 +38,11 @@ int built_cd(char **cadena)
 }
 
 /**
- *cd_parent - change directory
- *
- *@argv: array from argv
- *@name: name  of shell
- *Return: pointer to string
+ * cd_parent - change directory
+ * @argv: array from argv
+ * @name: name of shell
+ * Return: void
  */
-
 void cd_parent(char **argv, char *name)
 {
 	char *home, buf[BUFSIZ], *cp = getcwd(buf, sizeof(buf)), *chr;
@@ -59,13 +52,14 @@ void cd_parent(char **argv, char *name)
 	home = get_home();
 	if (home == NULL)
 		home = cp;
+
 	if (argv[1] != NULL)
 		chr = argv[1];
 	else
 		chr = "";
+
 	if (argv[1] == NULL || chr[0] == '~' || chr[0] == '-')
 	{
-
 		if (chr[0] == '-')
 		{
 			write(STDOUT_FILENO, old_pwd, _strlen(old_pwd));
@@ -83,17 +77,17 @@ void cd_parent(char **argv, char *name)
 		chdir(cp);
 		perror(name);
 	}
+
 	for (i = 0; cp[i] != '\0'; i++)
 		old_pwd[i] = cp[i];
+
 	old_pwd[i] = '\0';
 }
 
 /**
- *built_history - builtin history
- *
- *@cadena: data info
- *
- *Return: No return
+ * built_history - builtin history
+ * @cadena: data info
+ * Return: int
  */
 int built_history(char **cadena)
 {
@@ -113,11 +107,9 @@ int built_history(char **cadena)
 }
 
 /**
- *built_help - builtin help
- *
- *@cadena: data info
- *
- *Return: 0 succces -1 failure
+ * built_help - builtin help
+ * @cadena: data info
+ * Return: int
  */
 int built_help(char **cadena)
 {
@@ -137,7 +129,7 @@ int built_help(char **cadena)
 	cont = 0;
 	len = strlen(list_b[cont][0]);
 	while ((cadena[1] != NULL) &&
-	((_strncmp(cadena[1], list_b[cont][0], len)) != 0) && (cont < 8))
+		((_strncmp(cadena[1], list_b[cont][0],len)) != 0) && (cont < 8))
 	{
 		cont++;
 		len = strlen(list_b[cont][0]);

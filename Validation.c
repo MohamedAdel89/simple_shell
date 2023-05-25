@@ -1,13 +1,12 @@
 #include "headers.h"
 
 /**
- *valid_command - validates if the command is a built in or has a binary file
- *@argv: array of strings input
- *@name: name of the shell
- *@line: number of line executed
- *Return: none
+ * valid_command - validates if the command is a built-in or has a binary file
+ * @argv: array of strings input
+ * @name: name of the shell
+ * @line: number of line executed
+ * Return: none
  */
-
 void valid_command(char **argv, char *name, int line)
 {
 	bicmds_t builtinCmds[] = {
@@ -33,6 +32,7 @@ void valid_command(char **argv, char *name, int line)
 		}
 		iter++;
 	}
+
 	ful_path = _which(*argv);
 	if (ful_path != NULL)
 	{
@@ -50,28 +50,29 @@ void valid_command(char **argv, char *name, int line)
 }
 
 /**
- *_which - find the path for a command
- *@cmd: command to find
- *Return: the ful path concatenated with the command
+ * _which - find the path for a command
+ * @cmd: command to find
+ * Return: the full path concatenated with the command
  */
-
 char *_which(char *cmd)
 {
-
 	struct stat st;
 	char *path, *cat, *Bcmd = str_concat("/", cmd), *tmpEnviron, sw = '0';
 
 	if (*cmd == '/' || *cmd == '.')
 		return (cmd);
+
 	tmpEnviron = get_path();
 	path = _strtok(tmpEnviron, "=");
 	path = _strtok(NULL, "");
+
 	if (path == NULL || tmpEnviron == NULL)
 		return (NULL);
 	else if (*path == ':')
 		check_cd(&path, &Bcmd, &cat, &sw);
 	else
 		path = _strtok(path, ":");
+
 	while (path != NULL)
 	{
 		path = _strtok(NULL, "");
@@ -88,7 +89,9 @@ char *_which(char *cmd)
 			free(cat);
 		}
 	}
+
 	free(tmpEnviron);
+
 	if (path != NULL || sw == '1')
 		cat != (Bcmd + 1) ? free(Bcmd) : (void)1;
 	else
@@ -96,18 +99,18 @@ char *_which(char *cmd)
 		cat = path;
 		free(Bcmd);
 	}
+
 	return (cat);
 }
 
 /**
- *check_cd - checks for current path
- *@path: current path
- *@Bcmd: slash command
- *@cat: concatenation
- *@sw: switch for which
- *Return: none
+ * check_cd - checks for current path
+ * @path: current path
+ * @Bcmd: slash command
+ * @cat: concatenation
+ * @sw: switch for which
+ * Return: none
  */
-
 void check_cd(char **path, char **Bcmd, char **cat, char *sw)
 {
 	struct stat st;
@@ -120,15 +123,13 @@ void check_cd(char **path, char **Bcmd, char **cat, char *sw)
 	}
 	else
 		*path = _strtok(*path, ":");
-
 }
 
 /**
- *_strdup - copy a string
- *@str: string to be copyied
- *Return: pointer to a newly allocated space in memory
+ * _strdup - copy a string
+ * @str: string to be copied
+ * Return: pointer to a newly allocated space in memory
  */
-
 char *_strdup(char *str)
 {
 	int size = 1;
@@ -149,17 +150,19 @@ char *_strdup(char *str)
 		free(cpystr);
 		return (NULL);
 	}
+
 	size--;
+
 	for (; size >= 0; size--)
 		*(cpystr + size) = *(str + size);
+
 	return (cpystr);
 }
 
 /**
- *get_path - function that get path variable in k
- *Return: char pointing to a copy to path
+ * get_path - function that gets the PATH variable
+ * Return: char pointing to a copy of PATH
  */
-
 char *get_path(void)
 {
 	unsigned int i = 0;
@@ -167,8 +170,10 @@ char *get_path(void)
 
 	while (environ[i] != NULL && _strncmp(environ[i], "PATH", 4) != 0)
 		(i)++;
+
 	if (environ[i] == NULL)
 		return (NULL);
+
 	tmpEnviron = _strdup(environ[i]);
 	return (tmpEnviron);
 }

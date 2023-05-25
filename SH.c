@@ -2,11 +2,10 @@
 #include <errno.h>
 
 /**
- *invoke_shell - Super simple shell
- *@name: name of the executable
- *Return: 0
+ * invoke_shell - Super simple shell
+ * @name: name of the executable
+ * Return: void
  */
-
 void invoke_shell(char *name)
 {
 	ssize_t numLines = 0;
@@ -17,6 +16,7 @@ void invoke_shell(char *name)
 
 	check_interactive(&lenPrompt);
 	print_prompt(lenPrompt);
+
 	while ((numLines = _getline(&buffer, &len, stdin)) != -1)
 	{
 		line++;
@@ -25,6 +25,7 @@ void invoke_shell(char *name)
 		check_exit(argv);
 		child_pid = fork();
 		child_pid == -1 ? perror(name) : (void) 0;
+
 		if (child_pid == 0)
 			if (argv != NULL)
 				valid_command(argv, name, line);
@@ -38,6 +39,7 @@ void invoke_shell(char *name)
 			wait(&wstatus);
 			hand_status(&wstatus, argv, name, buffer, wstatus_tmp);
 		}
+
 		print_prompt(lenPrompt);
 		free(buffer);
 		free(argv);
@@ -46,13 +48,13 @@ void invoke_shell(char *name)
 }
 
 /**
- *hand status - handling exit status
- *@wstatus: pointer to the value to be printed in terminal as prompt
- *@argv: data arrays with commands
- *@name: name
- *@buffer: buffer
- *@wstatus_tmp: temporal wstatus
- *Return: none
+ * hand_status - handling exit status
+ * @wstatus: pointer to the value to be printed in terminal as prompt
+ * @argv: data arrays with commands
+ * @name: name
+ * @buffer: buffer
+ * @wstatus_tmp: temporal wstatus
+ * Return: none
  */
 void hand_status(int *wstatus, char **argv, char *name,
 		 char *buffer, int wstatus_tmp)
@@ -60,6 +62,7 @@ void hand_status(int *wstatus, char **argv, char *name,
 	if (WIFEXITED(*wstatus) == 1)
 	{
 		*wstatus = WEXITSTATUS(*wstatus) & 0xFF;
+
 		if (*wstatus != 0 &&  *wstatus != 1 &&
 		    *wstatus != 255 && *wstatus != 127)
 		{
@@ -69,23 +72,24 @@ void hand_status(int *wstatus, char **argv, char *name,
 			{
 				free(buffer);
 				free(argv);
+
 				if (*wstatus == 124)
 					exit(wstatus_tmp);
 				else
 					exit(*wstatus);
 			}
 		}
+
 		if (*wstatus == 127 && isatty(STDIN_FILENO) == 0)
 			exit(127);
 	}
 }
 
 /**
- *print_prompt- print the prompt in shell
- *@lenPrompt: len of prompt
- *Return: none
+ * print_prompt - print the prompt in shell
+ * @lenPrompt: len of prompt
+ * Return: none
  */
-
 void print_prompt(int lenPrompt)
 {
 	char *cp, *my_prompt, *buf = NULL;
@@ -104,13 +108,11 @@ void print_prompt(int lenPrompt)
 	}
 }
 
-
 /**
- *check_interactive - checks if the shell is interactive or not
- *@lenPrompt: pointer to the value to be printed in terminal as prompt
- *Return: none
+ * check_interactive - checks if the shell is interactive or not
+ * @lenPrompt: pointer to the value to be printed in terminal as prompt
+ * Return: none
  */
-
 void check_interactive(int *lenPrompt)
 {
 	if (isatty(STDIN_FILENO) == 0)
@@ -120,9 +122,9 @@ void check_interactive(int *lenPrompt)
 }
 
 /**
- *check_exit - checks if exit command
- *@argv: arguments
- *Return: none
+ * check_exit - checks if exit command
+ * @argv: arguments
+ * Return: none
  */
 void check_exit(char **argv)
 {
@@ -130,6 +132,7 @@ void check_exit(char **argv)
 
 	if (argv == NULL)
 		return;
+
 	if (_strncmp(argv[0], "exit", 0) == 0 && argv[1] != NULL)
 	{
 		num = _atoi(argv[1]);
@@ -137,4 +140,3 @@ void check_exit(char **argv)
 			exit(num);
 	}
 }
-
